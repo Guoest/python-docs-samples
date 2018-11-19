@@ -1,0 +1,732 @@
+{
+  "channels": [
+    {
+      "type": "slack", 
+      "labels": {
+        "channel_name": "acuit-alerts-uat", 
+        "auth_token": "**********************************************************************a1cc"
+      }, 
+      "enabled": true, 
+      "name": "projects/acuit-uat/notificationChannels/4517554967161648330"
+    }, 
+    {
+      "type": "slack", 
+      "labels": {
+        "channel_name": "#org-sync-time-uat", 
+        "auth_token": "***********************************************************************7b01"
+      }, 
+      "enabled": true, 
+      "name": "projects/acuit-uat/notificationChannels/5306969946763113049"
+    }
+  ], 
+  "project_name": "projects/acuit-uat", 
+  "policies": [
+    {
+      "combiner": "OR", 
+      "mutationRecord": {
+        "mutatedBy": "zoran.stojakovic@pwc.com", 
+        "mutateTime": "2017-11-30T22:36:25.588551103Z"
+      }, 
+      "name": "projects/acuit-uat/alertPolicies/1008494237490075764", 
+      "creationRecord": {
+        "mutatedBy": "zoran.stojakovic@pwc.com", 
+        "mutateTime": "2017-11-30T22:36:25.588551103Z"
+      }, 
+      "documentation": {
+        "content": "https://pwcnext.atlassian.net/wiki/spaces/ACUIT/pages", 
+        "mimeType": "text/markdown"
+      }, 
+      "enabled": true, 
+      "notificationChannels": [
+        "projects/acuit-uat/notificationChannels/4517554967161648330"
+      ], 
+      "conditions": [
+        {
+          "conditionThreshold": {
+            "comparison": "COMPARISON_GT", 
+            "aggregations": [
+              {
+                "perSeriesAligner": "ALIGN_MEAN", 
+                "alignmentPeriod": "60s", 
+                "groupByFields": [
+                  "project", 
+                  "resource.label.subscription_id"
+                ], 
+                "crossSeriesReducer": "REDUCE_MEAN"
+              }
+            ], 
+            "filter": "metric.type=\"pubsub.googleapis.com/subscription/oldest_unacked_message_age\" AND project=\"acuit-predictor-uat\" AND resource.label.subscription_id=\"predictor-initial-request-transfer-subscription\" AND resource.type=\"pubsub_subscription\"", 
+            "trigger": {
+              "count": 1
+            }, 
+            "duration": "60s", 
+            "thresholdValue": 10800.0
+          }, 
+          "displayName": "Metric Threshold on Pub/Sub Subscription predictor-initial-request-transfer-subscription", 
+          "name": "projects/acuit-uat/alertPolicies/1008494237490075764/conditions/1008494237490075467"
+        }
+      ], 
+      "displayName": "initial transfer prediction taking too long"
+    }, 
+    {
+      "combiner": "OR", 
+      "mutationRecord": {
+        "mutatedBy": "yicheng.guo@pwc.com", 
+        "mutateTime": "2018-10-11T00:48:52.140006365Z"
+      }, 
+      "name": "projects/acuit-uat/alertPolicies/10523458233165155445", 
+      "creationRecord": {
+        "mutatedBy": "chad.obrien@pwc.com", 
+        "mutateTime": "2017-11-21T04:17:43.637157363Z"
+      }, 
+      "documentation": {
+        "content": "<https://app.google.stackdriver.com/dashboards/7438881966706419809?project=acuit-uat|Overall Dashboard>", 
+        "mimeType": "text/markdown"
+      }, 
+      "enabled": true, 
+      "notificationChannels": [
+        "projects/acuit-uat/notificationChannels/4517554967161648330"
+      ], 
+      "conditions": [
+        {
+          "conditionThreshold": {
+            "comparison": "COMPARISON_GT", 
+            "aggregations": [
+              {
+                "perSeriesAligner": "ALIGN_RATE", 
+                "alignmentPeriod": "60s", 
+                "groupByFields": [
+                  "project"
+                ], 
+                "crossSeriesReducer": "REDUCE_SUM"
+              }
+            ], 
+            "filter": "metric.label.response_code>=\"500\" AND metric.label.response_code<\"600\" AND metric.type=\"appengine.googleapis.com/http/server/response_count\" AND resource.type=\"gae_app\"", 
+            "trigger": {
+              "count": 1
+            }, 
+            "duration": "60s", 
+            "thresholdValue": 1.0
+          }, 
+          "displayName": "Metric Threshold on All GAE Apps", 
+          "name": "projects/acuit-uat/alertPolicies/10523458233165155445/conditions/10523458233165154662"
+        }, 
+        {
+          "conditionThreshold": {
+            "comparison": "COMPARISON_GT", 
+            "aggregations": [
+              {
+                "perSeriesAligner": "ALIGN_RATE", 
+                "alignmentPeriod": "60s", 
+                "groupByFields": [
+                  "project"
+                ], 
+                "crossSeriesReducer": "REDUCE_SUM"
+              }
+            ], 
+            "filter": "metric.label.response_code>=\"400\" AND metric.label.response_code<\"500\" AND metric.type=\"appengine.googleapis.com/http/server/response_count\" AND resource.type=\"gae_app\"", 
+            "trigger": {
+              "count": 1
+            }, 
+            "duration": "300s", 
+            "thresholdValue": 5.0
+          }, 
+          "displayName": "Metric Threshold on All GAE Apps", 
+          "name": "projects/acuit-uat/alertPolicies/10523458233165155445/conditions/10523458233165153879"
+        }
+      ], 
+      "displayName": "App Engine Response 4XX/5XX"
+    }, 
+    {
+      "combiner": "OR", 
+      "mutationRecord": {
+        "mutatedBy": "zoran.stojakovic@pwc.com", 
+        "mutateTime": "2017-11-30T22:35:45.275823927Z"
+      }, 
+      "name": "projects/acuit-uat/alertPolicies/10809445943403382949", 
+      "creationRecord": {
+        "mutatedBy": "zoran.stojakovic@pwc.com", 
+        "mutateTime": "2017-11-30T22:35:45.275823927Z"
+      }, 
+      "documentation": {
+        "content": "https://pwcnext.atlassian.net/wiki/spaces/ACUIT/pages", 
+        "mimeType": "text/markdown"
+      }, 
+      "enabled": true, 
+      "notificationChannels": [
+        "projects/acuit-uat/notificationChannels/4517554967161648330"
+      ], 
+      "conditions": [
+        {
+          "conditionThreshold": {
+            "comparison": "COMPARISON_GT", 
+            "aggregations": [
+              {
+                "perSeriesAligner": "ALIGN_MEAN", 
+                "alignmentPeriod": "60s", 
+                "groupByFields": [
+                  "project", 
+                  "resource.label.subscription_id"
+                ], 
+                "crossSeriesReducer": "REDUCE_MEAN"
+              }
+            ], 
+            "filter": "metric.type=\"pubsub.googleapis.com/subscription/oldest_unacked_message_age\" AND project=\"acuit-predictor-uat\" AND resource.label.subscription_id=\"predictor-repredict-request-transfer-subscription\" AND resource.type=\"pubsub_subscription\"", 
+            "trigger": {
+              "count": 1
+            }, 
+            "duration": "60s", 
+            "thresholdValue": 21600.0
+          }, 
+          "displayName": "Metric Threshold on Pub/Sub Subscription predictor-repredict-request-transfer-subscription", 
+          "name": "projects/acuit-uat/alertPolicies/10809445943403382949/conditions/10809445943403380890"
+        }
+      ], 
+      "displayName": "transfer re-prediction taking too long"
+    }, 
+    {
+      "combiner": "OR", 
+      "mutationRecord": {
+        "mutatedBy": "zoran.stojakovic@pwc.com", 
+        "mutateTime": "2017-12-18T02:20:20.030908003Z"
+      }, 
+      "name": "projects/acuit-uat/alertPolicies/11342787176895261855", 
+      "creationRecord": {
+        "mutatedBy": "zoran.stojakovic@pwc.com", 
+        "mutateTime": "2017-10-13T01:10:15.461301407Z"
+      }, 
+      "documentation": {
+        "content": "https://pwcnext.atlassian.net/wiki/spaces/ACUIT/pages", 
+        "mimeType": "text/markdown"
+      }, 
+      "enabled": true, 
+      "notificationChannels": [
+        "projects/acuit-uat/notificationChannels/4517554967161648330"
+      ], 
+      "conditions": [
+        {
+          "conditionThreshold": {
+            "comparison": "COMPARISON_GT", 
+            "aggregations": [
+              {
+                "perSeriesAligner": "ALIGN_MEAN", 
+                "alignmentPeriod": "60s", 
+                "groupByFields": [
+                  "project", 
+                  "resource.label.subscription_id"
+                ], 
+                "crossSeriesReducer": "REDUCE_MEAN"
+              }
+            ], 
+            "filter": "metric.type=\"pubsub.googleapis.com/subscription/oldest_unacked_message_age\" AND project=\"acuit-predictor-uat\" AND resource.label.subscription_id=\"predictor-initial-request-invoice-receivable-subscription\" AND resource.type=\"pubsub_subscription\"", 
+            "trigger": {
+              "count": 1
+            }, 
+            "duration": "60s", 
+            "thresholdValue": 3600.0
+          }, 
+          "displayName": "Metric Threshold on Pub/Sub Subscription predictor-initial-request-subscription-invoice-receivable", 
+          "name": "projects/acuit-uat/alertPolicies/11342787176895261855/conditions/11342787176895258916"
+        }
+      ], 
+      "displayName": "initial invoice prediction taking too long"
+    }, 
+    {
+      "combiner": "OR", 
+      "mutationRecord": {
+        "mutatedBy": "chad.obrien@pwc.com", 
+        "mutateTime": "2018-06-29T02:11:30.508751993Z"
+      }, 
+      "name": "projects/acuit-uat/alertPolicies/12199947834931530226", 
+      "creationRecord": {
+        "mutatedBy": "chad.obrien@pwc.com", 
+        "mutateTime": "2018-06-29T02:11:30.508751993Z"
+      }, 
+      "documentation": {
+        "content": "Limit approaching 1000 https://cloud.google.com/sql/docs/quotas#fixed-limits https://pwcnext.atlassian.net/browse/NV2-2719", 
+        "mimeType": "text/markdown"
+      }, 
+      "enabled": true, 
+      "notificationChannels": [
+        "projects/acuit-uat/notificationChannels/4517554967161648330"
+      ], 
+      "conditions": [
+        {
+          "conditionThreshold": {
+            "comparison": "COMPARISON_GT", 
+            "aggregations": [
+              {
+                "perSeriesAligner": "ALIGN_MEAN", 
+                "alignmentPeriod": "60s", 
+                "groupByFields": [
+                  "project", 
+                  "resource.label.database_id", 
+                  "resource.label.region"
+                ], 
+                "crossSeriesReducer": "REDUCE_MEAN"
+              }
+            ], 
+            "filter": "metric.type=\"cloudsql.googleapis.com/database/network/connections\" AND resource.label.database_id=\"acuit-nexthub-ui-uat:nexthub-uat\" AND resource.label.region=\"asia-northeast1\" AND resource.type=\"cloudsql_database\"", 
+            "trigger": {
+              "count": 1
+            }, 
+            "duration": "900s", 
+            "thresholdValue": 900.0
+          }, 
+          "displayName": "Metric Threshold on Google Cloud SQL nexthub-uat", 
+          "name": "projects/acuit-uat/alertPolicies/12199947834931530226/conditions/12199947834931531081"
+        }
+      ], 
+      "displayName": "Metric Threshold on Google Cloud SQL nexthub-uat"
+    }, 
+    {
+      "combiner": "OR", 
+      "mutationRecord": {
+        "mutatedBy": "zoran.stojakovic@pwc.com", 
+        "mutateTime": "2017-10-13T03:33:29.140341816Z"
+      }, 
+      "name": "projects/acuit-uat/alertPolicies/12255378816558742908", 
+      "creationRecord": {
+        "mutatedBy": "zoran.stojakovic@pwc.com", 
+        "mutateTime": "2017-10-13T01:11:37.162338095Z"
+      }, 
+      "documentation": {
+        "content": "https://pwcnext.atlassian.net/wiki/spaces/ACUIT/pages", 
+        "mimeType": "text/markdown"
+      }, 
+      "enabled": true, 
+      "notificationChannels": [
+        "projects/acuit-uat/notificationChannels/4517554967161648330"
+      ], 
+      "conditions": [
+        {
+          "conditionThreshold": {
+            "comparison": "COMPARISON_GT", 
+            "aggregations": [
+              {
+                "perSeriesAligner": "ALIGN_MEAN", 
+                "alignmentPeriod": "60s", 
+                "groupByFields": [
+                  "project", 
+                  "resource.label.subscription_id"
+                ], 
+                "crossSeriesReducer": "REDUCE_MEAN"
+              }
+            ], 
+            "filter": "metric.type=\"pubsub.googleapis.com/subscription/oldest_unacked_message_age\" AND project=\"acuit-predictor-uat\" AND resource.label.subscription_id=\"predictor-initial-request-transaction-subscription\" AND resource.type=\"pubsub_subscription\"", 
+            "trigger": {
+              "count": 1
+            }, 
+            "duration": "60s", 
+            "thresholdValue": 10800.0
+          }, 
+          "displayName": "Metric Threshold on Pub/Sub Subscription predictor-initial-request-transaction-subscription", 
+          "name": "projects/acuit-uat/alertPolicies/12255378816558742908/conditions/12255378816558743069"
+        }
+      ], 
+      "displayName": "initial transaction prediction taking too long"
+    }, 
+    {
+      "combiner": "OR", 
+      "mutationRecord": {
+        "mutatedBy": "nigel.soon@pwc.com", 
+        "mutateTime": "2017-12-05T04:10:55.363205458Z"
+      }, 
+      "name": "projects/acuit-uat/alertPolicies/14552960047485918204", 
+      "creationRecord": {
+        "mutatedBy": "nigel.soon@pwc.com", 
+        "mutateTime": "2017-12-05T04:10:55.363205458Z"
+      }, 
+      "documentation": {
+        "content": "acuit-netxhub-ui-uat instances are scaling", 
+        "mimeType": "text/markdown"
+      }, 
+      "enabled": true, 
+      "notificationChannels": [
+        "projects/acuit-uat/notificationChannels/4517554967161648330"
+      ], 
+      "conditions": [
+        {
+          "conditionThreshold": {
+            "comparison": "COMPARISON_GT", 
+            "aggregations": [
+              {
+                "perSeriesAligner": "ALIGN_MEAN", 
+                "alignmentPeriod": "60s", 
+                "groupByFields": [
+                  "project"
+                ], 
+                "crossSeriesReducer": "REDUCE_SUM"
+              }
+            ], 
+            "filter": "metric.label.state=\"active\" AND metric.type=\"appengine.googleapis.com/system/instance_count\" AND project=\"acuit-nexthub-ui-uat\" AND resource.type=\"gae_app\"", 
+            "trigger": {
+              "count": 1
+            }, 
+            "duration": "60s", 
+            "thresholdValue": 10.0
+          }, 
+          "displayName": "Metric Threshold on GAE App acuit-nexthub-ui-uat", 
+          "name": "projects/acuit-uat/alertPolicies/14552960047485918204/conditions/14552960047485918297"
+        }
+      ], 
+      "displayName": "acuit-netxhub-ui-uat instance scaling"
+    }, 
+    {
+      "combiner": "OR", 
+      "mutationRecord": {
+        "mutatedBy": "zoran.stojakovic@pwc.com", 
+        "mutateTime": "2017-10-13T03:34:29.594438968Z"
+      }, 
+      "name": "projects/acuit-uat/alertPolicies/17722105726440640132", 
+      "creationRecord": {
+        "mutatedBy": "zoran.stojakovic@pwc.com", 
+        "mutateTime": "2017-07-19T11:37:15.457814841Z"
+      }, 
+      "documentation": {
+        "content": "https://pwcnext.atlassian.net/wiki/spaces/ACUIT/pages", 
+        "mimeType": "text/markdown"
+      }, 
+      "enabled": true, 
+      "notificationChannels": [
+        "projects/acuit-uat/notificationChannels/4517554967161648330"
+      ], 
+      "conditions": [
+        {
+          "conditionThreshold": {
+            "comparison": "COMPARISON_GT", 
+            "aggregations": [
+              {
+                "perSeriesAligner": "ALIGN_MEAN", 
+                "alignmentPeriod": "60s", 
+                "groupByFields": [
+                  "project", 
+                  "resource.label.subscription_id"
+                ], 
+                "crossSeriesReducer": "REDUCE_MEAN"
+              }
+            ], 
+            "filter": "metric.type=\"pubsub.googleapis.com/subscription/oldest_unacked_message_age\" AND project=\"acuit-predictor-uat\" AND resource.label.subscription_id=\"predictor-gl-feed-subscription-300\" AND resource.type=\"pubsub_subscription\"", 
+            "trigger": {
+              "count": 1
+            }, 
+            "duration": "60s", 
+            "thresholdValue": 600.0
+          }, 
+          "displayName": "Metric Threshold on Pub/Sub Subscription predictor-gl-feed-subscription-300", 
+          "name": "projects/acuit-uat/alertPolicies/17722105726440640132/conditions/17722105726440637297"
+        }
+      ], 
+      "displayName": "gl.feed messages taking too long to process"
+    }, 
+    {
+      "combiner": "OR", 
+      "mutationRecord": {
+        "mutatedBy": "zoran.stojakovic@pwc.com", 
+        "mutateTime": "2017-12-18T02:18:51.553709615Z"
+      }, 
+      "name": "projects/acuit-uat/alertPolicies/2404325921080783229", 
+      "creationRecord": {
+        "mutatedBy": "zoran.stojakovic@pwc.com", 
+        "mutateTime": "2017-10-13T01:13:41.459317346Z"
+      }, 
+      "documentation": {
+        "content": "https://pwcnext.atlassian.net/wiki/spaces/ACUIT/pages", 
+        "mimeType": "text/markdown"
+      }, 
+      "enabled": true, 
+      "notificationChannels": [
+        "projects/acuit-uat/notificationChannels/4517554967161648330"
+      ], 
+      "conditions": [
+        {
+          "conditionThreshold": {
+            "comparison": "COMPARISON_GT", 
+            "aggregations": [
+              {
+                "perSeriesAligner": "ALIGN_MEAN", 
+                "alignmentPeriod": "60s", 
+                "groupByFields": [
+                  "project", 
+                  "resource.label.subscription_id"
+                ], 
+                "crossSeriesReducer": "REDUCE_MEAN"
+              }
+            ], 
+            "filter": "metric.type=\"pubsub.googleapis.com/subscription/oldest_unacked_message_age\" AND project=\"acuit-predictor-uat\" AND resource.label.subscription_id=\"predictor-repredict-request-invoice-receivable-subscription\" AND resource.type=\"pubsub_subscription\"", 
+            "trigger": {
+              "count": 1
+            }, 
+            "duration": "60s", 
+            "thresholdValue": 21600.0
+          }, 
+          "displayName": "Metric Threshold on Pub/Sub Subscription predictor-repredict-request-subscription-invoice-receivable", 
+          "name": "projects/acuit-uat/alertPolicies/2404325921080783229/conditions/2404325921080785986"
+        }
+      ], 
+      "displayName": "invoice re-prediction taking too long"
+    }, 
+    {
+      "combiner": "OR", 
+      "mutationRecord": {
+        "mutatedBy": "aert.van.de.hulsbeek@pwc.com", 
+        "mutateTime": "2017-07-21T01:01:41.406735015Z"
+      }, 
+      "name": "projects/acuit-uat/alertPolicies/2585737719912967973", 
+      "creationRecord": {
+        "mutatedBy": "aert.van.de.hulsbeek@pwc.com", 
+        "mutateTime": "2017-07-20T23:48:01.828581045Z"
+      }, 
+      "enabled": true, 
+      "notificationChannels": [
+        "projects/acuit-uat/notificationChannels/4517554967161648330"
+      ], 
+      "conditions": [
+        {
+          "conditionThreshold": {
+            "comparison": "COMPARISON_GT", 
+            "aggregations": [
+              {
+                "perSeriesAligner": "ALIGN_RATE", 
+                "alignmentPeriod": "60s", 
+                "groupByFields": [
+                  "project", 
+                  "resource.label.queue_id", 
+                  "resource.label.target_type"
+                ], 
+                "crossSeriesReducer": "REDUCE_SUM"
+              }
+            ], 
+            "filter": "metric.label.response_code=\"ok\" AND metric.type=\"cloudtasks.googleapis.com/queue/task_attempt_count\" AND resource.label.queue_id=\"requester-request\" AND resource.type=\"cloud_tasks_queue\"", 
+            "trigger": {
+              "count": 1
+            }, 
+            "duration": "300s", 
+            "thresholdValue": 4.9
+          }, 
+          "displayName": "Metric Threshold on Task Queue requester-request", 
+          "name": "projects/acuit-uat/alertPolicies/2585737719912967973/conditions/2585737719912964198"
+        }
+      ], 
+      "displayName": "Large number of tasks building up on request queue"
+    }, 
+    {
+      "combiner": "OR", 
+      "mutationRecord": {
+        "mutatedBy": "nigelks@gmail.com", 
+        "mutateTime": "2017-10-22T23:26:50.540121264Z"
+      }, 
+      "name": "projects/acuit-uat/alertPolicies/2895089537773746040", 
+      "creationRecord": {
+        "mutatedBy": "nigelks@gmail.com", 
+        "mutateTime": "2017-10-22T23:26:50.540121264Z"
+      }, 
+      "enabled": true, 
+      "notificationChannels": [
+        "projects/acuit-uat/notificationChannels/4517554967161648330"
+      ], 
+      "conditions": [
+        {
+          "conditionThreshold": {
+            "comparison": "COMPARISON_GT", 
+            "aggregations": [
+              {
+                "perSeriesAligner": "ALIGN_NEXT_OLDER", 
+                "alignmentPeriod": "1200s", 
+                "groupByFields": [
+                  "resource.label.*"
+                ], 
+                "crossSeriesReducer": "REDUCE_COUNT_FALSE"
+              }
+            ], 
+            "filter": "metric.type=\"monitoring.googleapis.com/uptime_check/check_passed\" AND metric.label.check_id=\"cashflow-coach-ui-bm9m\" AND resource.label.host=\"uat.cashflowcoach.pwc.com\" AND resource.type=\"uptime_url\"", 
+            "trigger": {
+              "count": 1
+            }, 
+            "duration": "300s", 
+            "thresholdValue": 1.0
+          }, 
+          "displayName": "Generic HTTPS check on uat.cashflowcoach.pwc.com ", 
+          "name": "projects/acuit-uat/alertPolicies/2895089537773746040/conditions/2895089537773746413"
+        }
+      ], 
+      "displayName": "Cashflow Coach UI Uptime Check Policy"
+    }, 
+    {
+      "combiner": "OR", 
+      "mutationRecord": {
+        "mutatedBy": "zoran.stojakovic@pwc.com", 
+        "mutateTime": "2017-12-18T02:21:18.782078760Z"
+      }, 
+      "name": "projects/acuit-uat/alertPolicies/3289455134319302555", 
+      "creationRecord": {
+        "mutatedBy": "zoran.stojakovic@pwc.com", 
+        "mutateTime": "2017-10-13T01:13:09.551583412Z"
+      }, 
+      "documentation": {
+        "content": "https://pwcnext.atlassian.net/wiki/spaces/ACUIT/pages", 
+        "mimeType": "text/markdown"
+      }, 
+      "enabled": true, 
+      "notificationChannels": [
+        "projects/acuit-uat/notificationChannels/4517554967161648330"
+      ], 
+      "conditions": [
+        {
+          "conditionThreshold": {
+            "comparison": "COMPARISON_GT", 
+            "aggregations": [
+              {
+                "perSeriesAligner": "ALIGN_MEAN", 
+                "alignmentPeriod": "60s", 
+                "groupByFields": [
+                  "project", 
+                  "resource.label.subscription_id"
+                ], 
+                "crossSeriesReducer": "REDUCE_MEAN"
+              }
+            ], 
+            "filter": "metric.type=\"pubsub.googleapis.com/subscription/oldest_unacked_message_age\" AND project=\"acuit-predictor-uat\" AND resource.label.subscription_id=\"predictor-repredict-request-invoice-payable-subscription\" AND resource.type=\"pubsub_subscription\"", 
+            "trigger": {
+              "count": 1
+            }, 
+            "duration": "60s", 
+            "thresholdValue": 21600.0
+          }, 
+          "displayName": "Metric Threshold on Pub/Sub Subscription predictor-repredict-request-subscription-invoice-payable", 
+          "name": "projects/acuit-uat/alertPolicies/3289455134319302555/conditions/3289455134319302304"
+        }
+      ], 
+      "displayName": "bill re-prediction taking too long"
+    }, 
+    {
+      "combiner": "OR", 
+      "mutationRecord": {
+        "mutatedBy": "chad.obrien@pwc.com", 
+        "mutateTime": "2018-10-02T20:53:18.729621526Z"
+      }, 
+      "name": "projects/acuit-uat/alertPolicies/394229021822064768", 
+      "creationRecord": {
+        "mutatedBy": "zoran.stojakovic@pwc.com", 
+        "mutateTime": "2017-10-13T01:09:47.543299109Z"
+      }, 
+      "documentation": {
+        "content": "<Doco|https://pwcnext.atlassian.net/wiki/spaces/ACUIT/pages/8355907/ACUIT+Predictor>", 
+        "mimeType": "text/markdown"
+      }, 
+      "enabled": true, 
+      "notificationChannels": [
+        "projects/acuit-uat/notificationChannels/4517554967161648330"
+      ], 
+      "conditions": [
+        {
+          "conditionThreshold": {
+            "comparison": "COMPARISON_GT", 
+            "aggregations": [
+              {
+                "perSeriesAligner": "ALIGN_MEAN", 
+                "alignmentPeriod": "60s", 
+                "groupByFields": [
+                  "project", 
+                  "resource.label.subscription_id"
+                ], 
+                "crossSeriesReducer": "REDUCE_MEAN"
+              }
+            ], 
+            "filter": "metric.type=\"pubsub.googleapis.com/subscription/oldest_unacked_message_age\" AND project=\"acuit-predictor-uat\" AND resource.label.subscription_id=\"predictor-initial-request-invoice-payable-subscription\" AND resource.type=\"pubsub_subscription\"", 
+            "trigger": {
+              "count": 1
+            }, 
+            "duration": "60s", 
+            "thresholdValue": 3600.0
+          }, 
+          "displayName": "Metric Threshold on Pub/Sub Subscription predictor-initial-request-subscription-invoice-payable", 
+          "name": "projects/acuit-uat/alertPolicies/394229021822064768/conditions/394229021822064451"
+        }
+      ], 
+      "displayName": "initial bill prediction taking too long"
+    }, 
+    {
+      "combiner": "OR", 
+      "mutationRecord": {
+        "mutatedBy": "zoran.stojakovic@pwc.com", 
+        "mutateTime": "2017-10-13T03:32:38.787202452Z"
+      }, 
+      "name": "projects/acuit-uat/alertPolicies/4817126815881545979", 
+      "creationRecord": {
+        "mutatedBy": "zoran.stojakovic@pwc.com", 
+        "mutateTime": "2017-10-13T01:15:09.165316494Z"
+      }, 
+      "documentation": {
+        "content": "https://pwcnext.atlassian.net/wiki/spaces/ACUIT/pages", 
+        "mimeType": "text/markdown"
+      }, 
+      "enabled": true, 
+      "notificationChannels": [
+        "projects/acuit-uat/notificationChannels/4517554967161648330"
+      ], 
+      "conditions": [
+        {
+          "conditionThreshold": {
+            "comparison": "COMPARISON_GT", 
+            "aggregations": [
+              {
+                "perSeriesAligner": "ALIGN_MEAN", 
+                "alignmentPeriod": "60s", 
+                "groupByFields": [
+                  "project", 
+                  "resource.label.subscription_id"
+                ], 
+                "crossSeriesReducer": "REDUCE_MEAN"
+              }
+            ], 
+            "filter": "metric.type=\"pubsub.googleapis.com/subscription/oldest_unacked_message_age\" AND project=\"acuit-predictor-uat\" AND resource.label.subscription_id=\"predictor-repredict-request-transaction-subscription\" AND resource.type=\"pubsub_subscription\"", 
+            "trigger": {
+              "count": 1
+            }, 
+            "duration": "60s", 
+            "thresholdValue": 21600.0
+          }, 
+          "displayName": "Metric Threshold on Pub/Sub Subscription predictor-repredict-request-transaction-subscription", 
+          "name": "projects/acuit-uat/alertPolicies/4817126815881545979/conditions/4817126815881545122"
+        }
+      ], 
+      "displayName": "transaction re-prediction taking too long"
+    }, 
+    {
+      "combiner": "OR", 
+      "mutationRecord": {
+        "mutatedBy": "michael.wolanski@pwc.com", 
+        "mutateTime": "2018-04-17T01:03:48.419142672Z"
+      }, 
+      "name": "projects/acuit-uat/alertPolicies/9365663420109449151", 
+      "creationRecord": {
+        "mutatedBy": "michael.wolanski@pwc.com", 
+        "mutateTime": "2018-04-17T01:03:48.419142672Z"
+      }, 
+      "enabled": true, 
+      "notificationChannels": [
+        "projects/acuit-uat/notificationChannels/5306969946763113049"
+      ], 
+      "conditions": [
+        {
+          "conditionThreshold": {
+            "comparison": "COMPARISON_GT", 
+            "aggregations": [
+              {}
+            ], 
+            "filter": "metric.type=\"custom.googleapis.com/initial_sync_time\"", 
+            "trigger": {
+              "count": 1
+            }, 
+            "duration": "0s", 
+            "thresholdValue": 120.0
+          }, 
+          "displayName": "Metric Threshold on Custom Metrics", 
+          "name": "projects/acuit-uat/alertPolicies/9365663420109449151/conditions/9365663420109450406"
+        }
+      ], 
+      "displayName": "Org sync time"
+    }
+  ]
+}
